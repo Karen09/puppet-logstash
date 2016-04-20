@@ -30,8 +30,13 @@ class logstash::service {
 
   case $logstash::service_provider {
 
+
     init: {
-      logstash::service::init { $logstash::params::service_name: }
+      service {"$service_name":
+        ensure     => $logstash_status,
+        provider   => $service_providers,
+        hasrestart => $service_hasrestart,
+      }
     }
 
     default: {
